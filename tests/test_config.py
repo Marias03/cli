@@ -103,6 +103,7 @@ def test_windows_config_dir(monkeypatch: MonkeyPatch):
     monkeypatch.delenv(ENV_HTTPIE_CONFIG_DIR, raising=False)
     assert get_default_config_dir() == DEFAULT_WINDOWS_CONFIG_DIR
 
+
 def test_default_headers(httpbin):
     env = MockEnvironment()
     env.config['default_headers'] = {'X-Custom-Header': 'test-value'}
@@ -119,6 +120,7 @@ def test_default_headers_overridable(httpbin):
     r = http(httpbin + '/headers', 'X-Custom-Header:override-value', env=env)
     assert HTTP_OK in r
     assert r.json['headers']['X-Custom-Header'] == 'override-value'
+
 
 def test_default_timeout(httpbin):
     env = MockEnvironment()
