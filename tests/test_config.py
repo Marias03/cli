@@ -119,3 +119,17 @@ def test_default_headers_overridable(httpbin):
     r = http(httpbin + '/headers', 'X-Custom-Header:override-value', env=env)
     assert HTTP_OK in r
     assert r.json['headers']['X-Custom-Header'] == 'override-value'
+
+def test_default_timeout(httpbin):
+    env = MockEnvironment()
+    env.config['default_timeout'] = 30
+    env.config.save()
+    assert env.config.default_timeout == 30
+
+
+def test_default_timeout_overridable(httpbin):
+    env = MockEnvironment()
+    env.config['default_timeout'] = 30
+    env.config.save()
+    r = http('--timeout=60', httpbin + '/get', env=env)
+    assert HTTP_OK in r

@@ -138,7 +138,8 @@ class Config(BaseConfigDict):
     FILENAME = 'config.json'
     DEFAULTS = {
         'default_options': [],
-        'default_headers': {}
+        'default_headers': {},
+        'default_timeout': None
     }
 
     def __init__(self, directory: Union[str, Path] = DEFAULT_CONFIG_DIR):
@@ -153,6 +154,10 @@ class Config(BaseConfigDict):
     @property
     def default_headers(self) -> dict:
         return self['default_headers']
+
+    @property
+    def default_timeout(self):
+        return self['default_timeout']
 
     def _configured_path(self, config_option: str, default: str) -> None:
         return Path(
